@@ -169,7 +169,7 @@ classdef Model8742 < handle
             cCmd = fprintf('%uPA%i', u8Axis, i32Val);
             this.write(cCmd);
         end
-         
+                 
         % @param {uint8 1x1} u8Axis - axis number (1 to 4)
         % @param {uint32 1x1} u32Val - accelleration in steps/sec^2 (1 to 200000)
         function setAcceleration(this, u8Axis, u32Val)
