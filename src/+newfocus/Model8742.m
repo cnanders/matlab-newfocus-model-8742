@@ -196,7 +196,7 @@ classdef Model8742 < handle
         % @param {uint8 1x1} u8Axis - axis number (1 to 4)
         % @return {logical 1x1} true if moving, false if done
         function l = getMotionDoneStatus(this, u8Axis)
-           cCmd = sprintf('%ufMD?', u8Axis);
+           cCmd = sprintf('%uMD?', u8Axis);
            l = this.queryLogical(cCmd);
         end
         
