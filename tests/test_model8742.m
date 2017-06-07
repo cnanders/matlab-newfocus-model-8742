@@ -10,9 +10,8 @@ comm = newfocus.Model8742(...
 );
 comm.init();
 comm.connect();
-% comm.clearBytesAvailable();
-%comm.getVersion()
-%comm.getIdentity()
+comm.getVersion()
+comm.getIdentity()
 
 
 % comm.disconnect();

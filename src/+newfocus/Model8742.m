@@ -284,6 +284,14 @@ classdef Model8742 < handle
         end
         
         
+        
+                    
+    end
+    
+    
+    methods (Access = protected)
+      
+        
         % Write a command, read the result and convert to double
         % {char 1xm} cCmd - the command
         function d = queryDouble(this, cCmd)
@@ -391,14 +399,7 @@ classdef Model8742 < handle
             % tcpip
             % c = fscanf(this.comm)
             
-            
         end
-                    
-    end
-    
-    
-    methods (Access = protected)
-                
         
         
     end
