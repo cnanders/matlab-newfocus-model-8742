@@ -196,7 +196,7 @@ classdef Model8742 < handle
         % @param {uint8 1x1} u8Axis - axis number (1 to 4)
         % @return {logical 1x1} true if moving, false if done
         function l = getMotionDoneStatus(this, u8Axis)
-           cCmd = sprintf('%ufMD?', u8Axis);
+           cCmd = sprintf('%uMD?', u8Axis);
            l = this.queryLogical(cCmd);
         end
         
@@ -212,7 +212,6 @@ classdef Model8742 < handle
         % @param {int8 1x1} i8Direction - negative number negative positive
         % for positive
         function moveIndefinitely(this, u8Axis, i8Direction)
-           
            if i8Direction < 0
                 cCmd = sprintf('%uMV-', u8Axis);
            else
@@ -221,6 +220,7 @@ classdef Model8742 < handle
            this.command(cCmd);
         end
          
+
         % @param {uint8 1x1} u8Axis - axis number (1 to 4)
         % @param {uint32 1x1} u32Val - accelleration in steps/sec^2 (1 to 200000)
         function setAcceleration(this, u8Axis, u32Val)
