@@ -207,6 +207,19 @@ classdef Model8742 < handle
             cCmd = sprintf('%uPA%i', u8Axis, i32Val);
             this.command(cCmd);
         end
+        
+        % @param {uint8 1x1} u8Axis - axis number (1 to 4)
+        % @param {int8 1x1} i8Direction - negative number negative positive
+        % for positive
+        function moveIndefinitely(this, u8Axis, i8Direction)
+           
+           if i8Direction < 0
+                cCmd = sprintf('%uMV-', u8Axis);
+           else
+               cCmd = sprintf('%uMV+', u8Axis);
+           end
+           this.command(cCmd);
+        end
          
         % @param {uint8 1x1} u8Axis - axis number (1 to 4)
         % @param {uint32 1x1} u32Val - accelleration in steps/sec^2 (1 to 200000)
