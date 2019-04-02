@@ -309,31 +309,46 @@ classdef Model8742 < handle
         % {char 1xm} cCmd - the command
         function d = queryDouble(this, cCmd)
             this.command(cCmd);
-            c = this.read();
-            d = str2double(c);
+            [c, lError] = this.read();
+            if lError
+                d = 0;
+            else
+                d = str2double(c);
+            end
         end
         
         % Write a command, read the result and convert to logical
         % {char 1xm} cCmd - the command
         function l = queryLogical(this, cCmd)
             this.command(cCmd);
-            c = this.read(); % '1' or '0'
-            l = logical(str2double(c));
+            [c, lError] = this.read(); % '1' or '0'
+            if lError
+                l = false;
+            else
+                l = logical(str2double(c));
+            end
         end
         
         % Write a command, read the result and convert to int32
         % {char 1xm} cCmd - the command
         function i32 = queryInt32(this, cCmd)
             this.command(cCmd);
-            c = this.read();
-            i32 = int32(str2double(c));
+            [c, lError] = this.read();
+            if lError
+                i32 = int32(0);
+            else
+                i32 = int32(str2double(c));
+            end
         end
         
         % Write a command, read the result
         % {char 1xm} cCmd - the command
         function c = queryChar(this, cCmd)
             this.command(cCmd);
-            c = this.read();
+            [c, lError] = this.read();
+            if lError
+                c = '';
+            end
         end
         
         function l = hasProp(this, c)
@@ -362,8 +377,10 @@ classdef Model8742 < handle
             
         end
         
+        % Returns list of bytes (uint8) from the client
+        % also returns {logical} error if the terminator is never reached
         
-        function u8 = readToTerminator(this, u8Terminator)
+        function [u8, lError] = readToTerminator(this, u8Terminator)
             
             lDebug = false;
             lTerminatorReached = false;
@@ -392,6 +409,7 @@ classdef Model8742 < handle
                 end
             end
             
+            lError = ~lTerminatorReached;
             u8 = u8Result;
             
         end
@@ -400,10 +418,10 @@ classdef Model8742 < handle
         % necessary (tcpip and tcpclient transmit and receive binary data).
         % @return {char 1xm} the ASCII result
         
-        function c = read(this)
+        function [c, lError] = read(this)
             
             % tcpclient
-            u8Result = this.readToTerminator(int8(13));
+            [u8Result, lError] = this.readToTerminator(int8(13));
             % remove carriage return and line feed terminator
             u8Result = u8Result(1 : end - 2);
             % convert to ASCII (char)
