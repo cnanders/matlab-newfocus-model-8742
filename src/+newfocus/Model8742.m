@@ -427,6 +427,10 @@ classdef Model8742 < handle
             % convert to ASCII (char)
             c = char(u8Result);
             
+            if lError
+                this.clearBytesAvailable()
+            end
+            
             % tcpip
             % c = fscanf(this.comm)
             
