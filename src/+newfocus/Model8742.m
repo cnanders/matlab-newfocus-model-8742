@@ -420,16 +420,23 @@ classdef Model8742 < handle
         
         function [c, lError] = read(this)
             
+            % default response
+            c = '';
+            
             % tcpclient
             [u8Result, lError] = this.readToTerminator(int8(13));
+            
+            if lError
+                this.clearBytesAvailable();
+                return;
+            end
+            
             % remove carriage return and line feed terminator
             u8Result = u8Result(1 : end - 2);
             % convert to ASCII (char)
             c = char(u8Result);
             
-            if lError
-                this.clearBytesAvailable()
-            end
+            
             
             % tcpip
             % c = fscanf(this.comm)
