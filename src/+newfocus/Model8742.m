@@ -1,4 +1,4 @@
-classdef Model8742 < handle
+classdef Model8742 < newfocus.AbstractModel8742
     
     %Model8742 Summary of this class goes here
     %   Detailed explanation goes here
